@@ -10,8 +10,19 @@ class BestBooks extends React.Component {
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
+  axios = require('axios');
+  getBooks = () => {
+    axios.get('/books')
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+
+  }
   componentDidMount() {
-    this.setState({books : axios('/books')}) ;
+    this.getBooks();
 
   }
   render() {
