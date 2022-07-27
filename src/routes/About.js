@@ -8,7 +8,7 @@ class Profile extends Component {
     return (
       <div>
         <p>Frontend App developed by TJ Parker, Backend App developed by Caelin Hargrave</p>
-        <Link to="/App">Home</Link> 
+        <Link to="/home">Home</Link> 
       </div>
     )
   }
