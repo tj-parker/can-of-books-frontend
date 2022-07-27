@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Header from './Header';
-import Footer from './Footer';
+// import Header from './Header';
+// import Footer from './Footer';
 
-import About from './About';
-import BookFormModal from './Components/BookFormModal';
+// import About from '.routes/About';
+// import BookFormModal from './Components/BookFormModal';
 
 import './App.css';
 

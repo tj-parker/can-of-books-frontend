@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap';
+// import Button from 'react-bootstrap';
 import axios from 'axios';
 
 class BookFormModal extends React.Component {
@@ -28,7 +28,7 @@ class BookFormModal extends React.Component {
     }
 
     newBook = () => {
-        axios.post('/book', {
+        axios.post('/books', {
             title: this.state.title,
             description: this.state.description,
             status: this.state.status
