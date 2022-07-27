@@ -6,10 +6,11 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import "../routes/BestBooks.css"
 import { Button } from 'react-bootstrap';
+import BookFormModal from './BookFormModal';
 
 
 const server = process.env.REACT_APP_PORT
-let url = `https://can-of-books3.herokuapp.com/`
+let url = `https://can-of-books3.herokuapp.com`
 
 class BestBooks extends Component {
 
@@ -53,11 +54,10 @@ class BestBooks extends Component {
 
         </nav>
         <h2>Can Of Books</h2>
-
+        <BookFormModal />
         {this.state.noBooks &&
           <p>No books currently saved</p>}
         {this.state.books &&
-
           <Carousel variant="dark" pause="hover" style={{border: "2px solid black"}}>
             {this.state.books.map(book =>
               <Carousel.Item style={{ height: '15rem',}} key={book._id}>
