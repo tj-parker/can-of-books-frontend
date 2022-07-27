@@ -5,10 +5,11 @@ import { Carousel } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import "../routes/BestBooks.css"
+import { Button } from 'react-bootstrap';
 
 
 const server = process.env.REACT_APP_PORT
-let url = `http://localhost:${server}/book`
+let url = `http://localhost:${server}`
 
 class BestBooks extends Component {
 
@@ -29,7 +30,7 @@ class BestBooks extends Component {
   }
 
   getBooks = () => {
-    axios.get(url).then(response => {
+    axios.get(`${url}/books`).then(response => {
         this.setState({ books: response.data });
       })
 
@@ -57,14 +58,15 @@ class BestBooks extends Component {
           <p>No books currently saved</p>}
         {this.state.books &&
 
-          <Carousel variant="dark">
+          <Carousel variant="dark" pause="hover" style={{border: "2px solid black"}}>
             {this.state.books.map(book =>
-              <Carousel.Item style={{ height: '10rem' }} key={book._id}>
+              <Carousel.Item style={{ height: '15rem',}} key={book._id}>
                 <Carousel.Caption>
                   <h3>{book.title}</h3>
                   <p>{book.description}</p>
                   <p>{book.status}</p>
                 </Carousel.Caption>
+                <Button type="submit" variant="danger" style={{marginTop: "1rem"}}>Delete me</Button>
               </Carousel.Item>)}
           </Carousel>
         }
