@@ -2,15 +2,15 @@ import React from 'react';
 
 import Header from './Header';
 import Footer from './Footer';
-import BestBooks from './BestBooks';
+
 import About from './About';
-import BookFormModal from './BookFormModal';
+import BookFormModal from './Components/BookFormModal';
 
 import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BestBooks from './routes/BestBooks';
-import Header from './Header';
+
 import { Container } from 'react-bootstrap';
 
 
