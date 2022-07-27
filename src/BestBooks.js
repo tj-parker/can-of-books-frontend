@@ -29,7 +29,7 @@ class BestBooks extends React.Component {
                 interval: 2000
           })}</p>
         ) : (
-          <h3>No Books Found :(</h3>
+          <h3>No Books Found</h3>
         )}
       </>
     )
