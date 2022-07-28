@@ -33,7 +33,7 @@ class BestBooks extends Component {
   }
 
   getBooks = () => {
-    axios.get(`${server}/books`).then(response => {
+    axios.get(`${url}/books`).then(response => {
         this.setState({ books: response.data });
       })
 
