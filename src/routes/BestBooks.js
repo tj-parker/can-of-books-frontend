@@ -33,7 +33,7 @@ class BestBooks extends Component {
   }
 
   getBooks = () => {
-    axios.get(`${server}/books`).then(response => {
+    axios.get(`${url}/books`).then(response => {
         this.setState({ books: response.data });
       })
 
@@ -51,7 +51,6 @@ class BestBooks extends Component {
 }
 
   render() {
-    /* TODO: render all the books in a Carousel */
     return (
       <Container>
         <nav style={{
@@ -80,19 +79,7 @@ class BestBooks extends Component {
               </Carousel.Item>)}
           </Carousel>
           
-        }
-        <Form>
-          <Form.Group>
-            <Form.Label>Update Book</Form.Label>
-            <Form.Control onChange={this.handleChange} type="input"/>
-            <Form.Text>
-
-            </Form.Text>
-            
-            
-          </Form.Group>
-          
-        </Form>
+            }
       </Container>
     )
   }

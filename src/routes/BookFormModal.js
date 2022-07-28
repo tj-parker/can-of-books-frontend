@@ -7,6 +7,7 @@ import BestBooks from './BestBooks';
 
 
 const server = process.env.REACT_APP_PORT
+let url = `https://can-of-books3.herokuapp.com`
 
 class BookFormModal extends React.Component {
     constructor(props) {
@@ -52,7 +53,7 @@ class BookFormModal extends React.Component {
 
     newBook = async (book) => {
         try {
-           const response = await axios.post(`${server}/books`, book);
+           const response = await axios.post(`${url}/books`, book);
            const newBook = response.data;
         } catch(e){}
         
