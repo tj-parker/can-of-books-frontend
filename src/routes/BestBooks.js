@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import "../routes/BestBooks.css"
 import { Button } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
+import Form from 'react-bootstrap/Form';
 
 
 const server = process.env.REACT_APP_PORT
@@ -18,7 +19,8 @@ class BestBooks extends Component {
     super(props);
     this.state = {
       books: [],
-      noBooks: false
+      noBooks: false,
+      idToDelete: ''
     }
   }
 
@@ -31,14 +33,22 @@ class BestBooks extends Component {
   }
 
   getBooks = () => {
-    axios.get(`${url}/books`).then(response => {
+    axios.get(`${server}/books`).then(response => {
         this.setState({ books: response.data });
       })
 
 
   }
 
+  deleteBook = (id) => {
+    // this.setState({idToDelete: id});
+  }
 
+  handleChange(e) {
+    this.setState({
+        status: e.target.value
+    });
+}
 
   render() {
     /* TODO: render all the books in a Carousel */
@@ -54,7 +64,7 @@ class BestBooks extends Component {
 
         </nav>
         <h2>Can Of Books</h2>
-        <BookFormModal />
+        <BookFormModal bookList = {this.state.books}/>
         {this.state.noBooks &&
           <p>No books currently saved</p>}
         {this.state.books &&
@@ -66,10 +76,23 @@ class BestBooks extends Component {
                   <p>{book.description}</p>
                   <p>{book.status}</p>
                 </Carousel.Caption>
-                <Button type="submit" variant="danger" style={{marginTop: "1rem"}}>Delete me</Button>
+                
               </Carousel.Item>)}
           </Carousel>
+          
         }
+        <Form>
+          <Form.Group>
+            <Form.Label>Update Book</Form.Label>
+            <Form.Control onChange={this.handleChange} type="input"/>
+            <Form.Text>
+
+            </Form.Text>
+            
+            
+          </Form.Group>
+          
+        </Form>
       </Container>
     )
   }

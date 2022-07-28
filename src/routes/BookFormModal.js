@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import BestBooks from './BestBooks';
 
 
-const server = process.env.REACT_APP_URI
+const server = process.env.REACT_APP_PORT
 
 class BookFormModal extends React.Component {
     constructor(props) {
@@ -15,72 +15,85 @@ class BookFormModal extends React.Component {
             title: '',
             description: '',
             status: '',
+            idToDelete: ''
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleStatusChange = this.handleStatusChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        let {value} = event.target;
-        // this.setState({
-        //     title: event.target.title.value,
-        //     description: event.target.description.value,
-        //     status: event.target.status.value
-        // });
-        console.log(this.state);
+    handleTitleChange(e) {
+        this.setState({
+            title: e.target.value
+        });
     }
-
+    
+    handleDescriptionChange(e) {
+        this.setState({
+            description: e.target.value
+        });
+    }
+    
+    handleStatusChange(e) {
+        this.setState({
+            status: e.target.value
+        });
+    }
+    
     handleSubmit(e) {
         
         e.preventDefault();
-        this.setState({
-            title: e.target[0].value,
-            description: e.target[1].value,
-            status: e.target[2].value,
-        });
-        this.newBook();
+        console.log(this.state);
+        this.newBook(this.state);
         
     }
 
-    newBook = () => {
-        axios.post(`${server}/books`, {
-            title: this.state.title,
-            description: this.state.description,
-            status: this.state.status
-        })
+    newBook = async (book) => {
+        try {
+           const response = await axios.post(`${server}/books`, book);
+           const newBook = response.data;
+        } catch(e){}
+        
     }
+
+    // deleteBook = async () => {
+    //     for(let i =0; i < this.props.booklist.length; i++) {
+    //         if (this.state.title === this.props.booklist[i]) {
+    //             this.setState({idToDelete: this.props.booklist[i]._id})
+    //         }
+    //     }
+    //     try {
+    //         await axios.delete(`${server}/books/${this.state.idToDelete}`);
+    //     } catch(e) {
+    //         console.log(e);
+    //     }
+    //     // this.setState({idToDelete: id});
+    //   }
 
 
     render() {
-        console.log(server);
         return (
-            // <form onSubmit={this.handleSubmit}>
-            //     <label>
-            //         New Book
-            //         <textarea value={this.state.value} onChange={this.handleChange} />
-            //     </label>
-            //     <input type="submit" value="Add Book" />
-            // </form>
           <Container>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                     <Form.Label>Title</Form.Label>
-                    <Form.Control name="title" type="input" placeholder="title" />
+                    <Form.Control onChange={this.handleTitleChange} name="title" type="input" placeholder="title" />
                     <Form.Text className="text-muted">
                         Enter a book title
                     </Form.Text>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Description</Form.Label>
-                    <Form.Control name="description" type="input" placeholder="description" />
+                    <Form.Control onChange={this.handleDescriptionChange} name="description" type="input" placeholder="description" />
                     <Form.Text className="text-muted">
                         Enter a description
                     </Form.Text>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Status</Form.Label>
-                    <Form.Control name="status" type="input" placeholder="status" />
+                    <Form.Control onChange={this.handleStatusChange} name="status" type="input" placeholder="status" />
                     <Form.Text className="text-muted">
                         Enter status of checkout
                     </Form.Text>
@@ -88,6 +101,7 @@ class BookFormModal extends React.Component {
                 <Button  variant="primary" type="submit">
                     Submit
                 </Button>
+
             </Form>
           </Container>
             
