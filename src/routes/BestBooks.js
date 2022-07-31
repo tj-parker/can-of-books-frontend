@@ -5,12 +5,12 @@ import { Carousel } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import "../routes/BestBooks.css"
-import { Button } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
-import Form from 'react-bootstrap/Form';
+import { ListGroup } from 'react-bootstrap';
+import List from '../Components/List';
 
 
-const server = process.env.REACT_APP_PORT
+
 let url = `https://can-of-books3.herokuapp.com`
 
 class BestBooks extends Component {
@@ -20,7 +20,6 @@ class BestBooks extends Component {
     this.state = {
       books: [],
       noBooks: false,
-      idToDelete: ''
     }
   }
 
@@ -34,21 +33,30 @@ class BestBooks extends Component {
 
   getBooks = () => {
     axios.get(`${url}/books`).then(response => {
-        this.setState({ books: response.data });
-      })
-
-
+      this.setState({ books: response.data });
+      if (response.data.length === 0) {
+        this.setState({noBooks: true});
+      } else this.setState({noBooks: false})
+    })
   }
 
-  deleteBook = (id) => {
-    // this.setState({idToDelete: id});
+  deleteBook = async (id) => {
+    await axios.delete(`${url}/books/${id}`);
+    this.getBooks();
+  }
+
+  editBook = async (book) => {
+    console.log(book)
+    let id = book.id
+    await axios.put(`${url}/books/${id}`,book);
+    this.getBooks();
   }
 
   handleChange(e) {
     this.setState({
-        status: e.target.value
+      status: e.target.value
     });
-}
+  }
 
   render() {
     return (
@@ -57,17 +65,17 @@ class BestBooks extends Component {
           borderBottom: "solid 1px",
           paddingBottom: "1rem",
         }}>
-           <Link to="/home">Home</Link> |{" "}
-           <Link to="/about">About us</Link> 
-          
+          <Link to="/home">Home</Link> |{" "}
+          <Link to="/about">About us</Link>
+
 
         </nav>
         <h2>Can Of Books</h2>
-        <BookFormModal bookList = {this.state.books}/>
+        <BookFormModal getBooks={this.getBooks} bookList={this.state.books} />
         {this.state.noBooks &&
           <p>No books currently saved</p>}
         {this.state.books &&
-          <Carousel variant="dark" pause="hover" style={{border: "2px solid black"}}>
+          <Carousel variant="dark" pause="hover" style={{border: "2px solid black" }}>
             {this.state.books.map(book =>
               <Carousel.Item style={{ height: '15rem',}} key={book._id}>
                 <Carousel.Caption>
@@ -75,11 +83,12 @@ class BestBooks extends Component {
                   <p>{book.description}</p>
                   <p>{book.status}</p>
                 </Carousel.Caption>
-                
-              </Carousel.Item>)}
+               </Carousel.Item>)}
           </Carousel>
-          
-            }
+        }
+        <ListGroup>
+        {this.state.books.map(book => <List editBook={this.editBook} deleteBook={this.deleteBook} key={book._id} id={book._id} title={book.title}/>)}
+        </ListGroup>
       </Container>
     )
   }

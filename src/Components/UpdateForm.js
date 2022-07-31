@@ -1,28 +1,25 @@
 import React from 'react';
+import { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 
 
-
-let url = `https://can-of-books3.herokuapp.com`
-
-class BookFormModal extends React.Component {
+class UpdateForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
             description: '',
             status: '',
-            idToDelete: ''
+            id: this.props.bookId
         };
-
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleStatusChange = this.handleStatusChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleTitleChange(e) {
@@ -46,55 +43,47 @@ class BookFormModal extends React.Component {
     handleSubmit(e) {
         
         e.preventDefault();
-        console.log(this.state);
-        this.newBook(this.state);
+        this.props.handleEdit(this.state);
+        this.props.hidingForm();
         
     }
 
-    newBook = async (book) => {
-        try {
-           const response = await axios.post(`${url}/books`, book);
-           this.props.getBooks();
-        } catch(e){}
-        
-    }
+    
 
 
     render() {
         return (
           <Container>
-            <Form style={{marginBottom:"3rem", textAlign:"center"}} onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
-                    <Form.Label></Form.Label>
-                    <Form.Control onChange={this.handleTitleChange} name="title" type="input" placeholder="Title" />
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control onChange={this.handleTitleChange} name="title" type="input" placeholder="title of Book" />
                     <Form.Text className="text-muted">
-                        Enter a book title
                     </Form.Text>
                     
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label></Form.Label>
-                    <Form.Control onChange={this.handleDescriptionChange} name="description" type="input" placeholder="Description" />
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control onChange={this.handleDescriptionChange} name="description" type="input" placeholder="Book description" />
                     <Form.Text className="text-muted">
-                        Enter a description
                     </Form.Text>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label></Form.Label>
-                    <Form.Control onChange={this.handleStatusChange} name="status" type="input" placeholder="Status" />
+                    <Form.Label>Status</Form.Label>
+                    <Form.Control onChange={this.handleStatusChange} name="status" type="input" placeholder="Book status" />
                     <Form.Text className="text-muted">
-                        Enter status of checkout
                     </Form.Text>
                 </Form.Group>
-                <Button style={{marginTop:"1rem"}} variant="primary" type="submit">
+                <Button  variant="primary" type="submit">
                     Submit
                 </Button>
 
             </Form>
           </Container>
             
-        );
+        )
     }
 }
 
-export default BookFormModal;
+
+export default UpdateForm;
