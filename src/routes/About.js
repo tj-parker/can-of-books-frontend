@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 class Profile extends Component {
 
   render() {
-    /* TODO: render information about the developers */
     return (
       <div>
-        <p>Frontend App developed by TJ Parker, Backend App developed by Caelin Hargrave</p>
+        <p>App developed by TJ Parker and Caelin Hargrave</p>
         <Link to="/home">Home</Link> 
       </div>
     )
