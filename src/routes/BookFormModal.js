@@ -53,7 +53,7 @@ class BookFormModal extends React.Component {
 
     newBook = async (book) => {
         try {
-           await axios.post(`${url}/books`, book);
+           const response = await axios.post(`${url}/books`, book);
            this.props.getBooks();
         } catch(e){}
         
