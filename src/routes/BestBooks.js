@@ -22,11 +22,9 @@ class BestBooks extends Component {
     }
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
+  
   componentDidMount() {
     this.getBooks();
-
-    // this.setState({ books: axios('/books') });
 
   }
 

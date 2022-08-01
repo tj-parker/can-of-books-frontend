@@ -7,16 +7,17 @@ import {
 } from 'react-router-dom';
 import About from "./routes/About"
 import Home from "./routes/BestBooks"
+import App from './App';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  //   <App />
+    // <App />
   // </React.StrictMode>
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<App />} />
       <Route path="about" element={<About />} />
       <Route path="home" element={<Home />} />
     </Routes>
