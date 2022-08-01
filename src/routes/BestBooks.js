@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import "../routes/BestBooks.css"
+import "../routes/BestBooks.css";
 import BookFormModal from './BookFormModal';
 import { ListGroup } from 'react-bootstrap';
 import List from '../Components/List';
@@ -23,11 +23,9 @@ class BestBooks extends Component {
     }
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
+  
   componentDidMount() {
     this.getBooks();
-
-    // this.setState({ books: axios('/books') });
 
   }
 
